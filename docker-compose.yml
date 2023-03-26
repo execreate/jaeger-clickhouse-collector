@@ -26,10 +26,12 @@ services:
         command:
             -   "--grpc-storage-plugin.binary=/etc/jaeger-clickhouse/jaeger-clickhouse-plugin"
             -   "--grpc-storage-plugin.configuration-file=/etc/jaeger-clickhouse/config.yml"
+            -   "--collector.otlp.enabled=true"
+            -   "--collector.otlp.grpc.host-port=0.0.0.0:4317"
         volumes:
             -   ./jaeger-clickhouse-binary:/etc/jaeger-clickhouse
         ports:
-            -   "14250:14250"
+            -   "4317:4317"
         depends_on:
             clickhouse_server:
                     condition: service_healthy
